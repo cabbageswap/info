@@ -277,7 +277,6 @@ export function useListedTokens() {
       }, Promise.resolve([]))
       let formatted = allFetched?.map((t) => t.address.toLowerCase())
       updateSupportedTokens(formatted)
-      console.log({formatted, allFetched });
     }
 
     if (!supportedTokens) {
