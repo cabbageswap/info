@@ -421,7 +421,7 @@ function TokenPage({ address, history }) {
                   </Column>
                   <ButtonLight color={backgroundColor}>
                     <Link color={backgroundColor} external href={'https://testnet.a8scan.io/address/' + address}>
-                      View on Etherscan ↗
+                      View on explorer ↗
                     </Link>
                   </ButtonLight>
                 </TokenDetailsLayout>
