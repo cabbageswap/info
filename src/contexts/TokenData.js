@@ -241,6 +241,7 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
       accum.push(entry.id.slice(0, 42))
       return accum
     }, [])
+    console.log({tokenids, ids});
 
     let current = await client.query({
       query: TOKENS_HISTORICAL_BULK(ids),
@@ -672,6 +673,7 @@ export function Updater() {
     async function getData() {
       // get top pairs for overview list
       let topTokens = await getTopTokens(ethPrice, ethPriceOld)
+      console.log({topTokens});
       topTokens && updateTopTokens(topTokens)
     }
     ethPrice && ethPriceOld && getData()

@@ -162,6 +162,7 @@ function TokenPage({ address, history }) {
   const [savedTokens, addToken] = useSavedTokens()
   const listedTokens = useListedTokens()
 
+  console.log({listedTokens});
   useEffect(() => {
     window.scrollTo({
       behavior: 'smooth',

@@ -184,9 +184,13 @@ export default function Provider({ children }) {
 
 async function getBulkPairData(pairList, ethPrice) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
-  let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
-
+  let [bb1, bb2, bbweek] = await getBlocksFromTimestamps([t1, t2, tWeek])
+  let b1,b2,bWeek;
   try {
+    b1 = (bb1 || {}).number || null;
+    b2 = (bb2 || {}).number || null;
+    bWeek = (bbweek || {}).number || null;
+
     let current = await client.query({
       query: PAIRS_BULK,
       variables: {
@@ -196,7 +200,7 @@ async function getBulkPairData(pairList, ethPrice) {
     })
 
     let [oneDayResult, twoDayResult, oneWeekResult] = await Promise.all(
-      [b1, b2, bWeek].map(async (block) => {
+      [b1, b2, bWeek || b2].map(async (block) => {
         let result = client.query({
           query: PAIRS_HISTORICAL_BULK(block, pairList),
           fetchPolicy: 'cache-first',
@@ -238,7 +242,7 @@ async function getBulkPairData(pairList, ethPrice) {
             twoDayHistory = newData.data.pairs[0]
           }
           let oneWeekHistory = oneWeekData?.[pair.id]
-          if (!oneWeekHistory) {
+          if (!bWeek &&!oneWeekHistory) {
             let newData = await client.query({
               query: PAIR_DATA(pair.id, bWeek),
               fetchPolicy: 'cache-first',

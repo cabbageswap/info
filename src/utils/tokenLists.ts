@@ -26,11 +26,18 @@ function uriToHttp(uri: string): string[] {
 
 const tokenListValidator = new Ajv({ allErrors: true }).compile(schema)
 
+export const tokenMapped = {};
+require('../assets/tokens.json').tokens.forEach(token => {
+  tokenMapped[token.address.toLowerCase()] = token.logoURI;
+});
 /**
  * Contains the logic for resolving a list URL to a validated token list
  * @param listUrl list url
  */
 export default async function getTokenList(listUrl: string): Promise<TokenList> {
+  if(listUrl === 'default') {
+    return require('../assets/tokens.json')
+  }
   const urls = uriToHttp(listUrl)
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i]

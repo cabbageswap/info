@@ -3,8 +3,8 @@ import { timeframeOptions, SUPPORTED_LIST_URLS__NO_ENS } from '../constants'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import getTokenList from '../utils/tokenLists'
-import { healthClient } from '../apollo/client'
-import { SUBGRAPH_HEALTH } from '../apollo/queries'
+import { client } from "../apollo/client";
+import { SUBGRAPH_HEALTH_V2 } from "../apollo/queries";
 dayjs.extend(utc)
 
 const UPDATE = 'UPDATE'
@@ -174,13 +174,12 @@ export function useLatestBlocks() {
 
   useEffect(() => {
     async function fetch() {
-      healthClient
+      client
         .query({
-          query: SUBGRAPH_HEALTH,
+          query: SUBGRAPH_HEALTH_V2,
         })
         .then((res) => {
-          const syncedBlock = res.data.indexingStatusForCurrentVersion.chains[0].latestBlock.number
-          const headBlock = res.data.indexingStatusForCurrentVersion.chains[0].chainHeadBlock.number
+          const syncedBlock = res.data._meta.block.number;
           if (syncedBlock && headBlock) {
             updateLatestBlock(syncedBlock)
             updateHeadBlock(headBlock)
@@ -278,7 +277,9 @@ export function useListedTokens() {
       }, Promise.resolve([]))
       let formatted = allFetched?.map((t) => t.address.toLowerCase())
       updateSupportedTokens(formatted)
+      console.log({formatted, allFetched });
     }
+
     if (!supportedTokens) {
       try {
         fetchList()

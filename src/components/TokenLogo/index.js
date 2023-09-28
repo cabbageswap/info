@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { isAddress } from '../../utils/index.js'
+import { isAddress } from "../../utils"
 import EthereumLogo from '../../assets/eth.png'
+import { tokenMapped } from "../../utils/tokenLists";
 
 const BAD_IMAGES = {}
 
@@ -71,9 +72,13 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-    address
-  )}/logo.png`
+  let path = tokenMapped[address?.toLowerCase()]
+
+  if(!path) {
+    path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
+      address
+    )}/logo.png`
+  }
 
   return (
     <Inline>

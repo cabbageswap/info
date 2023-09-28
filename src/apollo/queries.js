@@ -3,7 +3,7 @@ import { FACTORY_ADDRESS, BUNDLE_ID } from '../constants'
 
 export const SUBGRAPH_HEALTH = gql`
   query health {
-    indexingStatusForCurrentVersion(subgraphName: "uniswap/uniswap-v2-dev") {
+    indexingStatusForCurrentVersion(subgraphName: "michael/cabbageswap-v2") {
       synced
       health
       chains {
@@ -16,6 +16,17 @@ export const SUBGRAPH_HEALTH = gql`
       }
     }
   }
+`
+export const SUBGRAPH_HEALTH_V2 = gql`
+    query {
+        _meta {
+            block {
+                hash
+                timestamp
+                number
+            }
+        }
+    }
 `
 
 export const V1_DATA_QUERY = gql`
@@ -71,6 +82,8 @@ export const GET_BLOCKS = (timestamps) => {
     }`
   })
   queryString += '}'
+
+  console.log(queryString);
   return gql(queryString)
 }
 
@@ -755,7 +768,7 @@ const TokenFields = `
 // used for getting top tokens by daily volume
 export const TOKEN_TOP_DAY_DATAS = gql`
   query tokenDayDatas($date: Int) {
-    tokenDayDatas(first: 50, orderBy: totalLiquidityUSD, orderDirection: desc, where: { date_gt: $date }) {
+    tokenDayDatas(first: 50, orderBy: totalLiquidityUSD, orderDirection: desc, where: { date_lt: $date }) {
       id
       date
     }
