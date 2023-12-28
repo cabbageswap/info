@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://query.graph.cabbageswap.com/subgraphs/name/michael/cabbageswap-v2',
+    uri: 'https://graph-query.cabbageswap.com/subgraphs/name/michael/cabbageswap-v2',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -36,7 +36,7 @@ export const stakingClient = new ApolloClient({
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://query.graph.cabbageswap.com/subgraphs/name/michael/cabbageswap-v2',
+    uri: 'https://graph-query.cabbageswap.com/subgraphs/name/michael/cabbageswap-v2',
   }),
   cache: new InMemoryCache(),
 })
