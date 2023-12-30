@@ -2,7 +2,8 @@
   "name": "@uniswap/info",
   "private": true,
   "homepage": "https://info.uniswap.org",
-  "devDependencies": {
+  "dependencies": {
+    "react-helmet": "^6.1.0",
     "@popperjs/core": "^2.4.2",
     "@reach/portal": "^0.10.3",
     "@reach/router": "^1.2.1",
@@ -93,7 +94,4 @@
     ]
   },
   "license": "GPL-3.0-or-later",
-  "dependencies": {
-    "react-helmet": "^6.1.0"
-  }
 }
