@@ -3,7 +3,6 @@
   "private": true,
   "homepage": "https://info.uniswap.org",
   "dependencies": {
-    "react-helmet": "^6.1.0",
     "@popperjs/core": "^2.4.2",
     "@reach/portal": "^0.10.3",
     "@reach/router": "^1.2.1",
@@ -48,6 +47,7 @@
     "react-dom": "^16.9.0",
     "react-feather": "^2.0.3",
     "react-ga": "^3.1.2",
+    "react-helmet": "^6.1.0",
     "react-iframe": "^1.8.0",
     "react-parallax": "^2.2.4",
     "react-popper": "^2.2.3",
